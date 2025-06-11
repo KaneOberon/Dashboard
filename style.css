@@ -76,3 +76,80 @@ header {
   margin-top: 0.5rem;
   min-height: 40px;
 }
+
+.chatbot {
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Chat window styling */
+#chat-window {
+  background-color: #fafafa;  /* very light gray, subtle */
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: inset 0 0 5px #ddd;
+  font-size: 14px;
+}
+
+/* Input and button container */
+.chatbot input[type="text"] {
+  width: 78%;
+  padding: 8px 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.chatbot input[type="text"]:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 4px #1a73e8;
+}
+
+.chatbot button {
+  width: 18%;
+  padding: 9px 0;
+  margin-top: 10px;
+  margin-left: 4%;
+  background-color: #1a73e8;  /* matching user bubble color */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chatbot button:hover {
+  background-color: #1669c1;
+}
+
+/* Chat message bubbles */
+#chat-window div {
+  margin: 6px 0;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 80%;
+  clear: both;
+  word-wrap: break-word;
+}
+
+#chat-window div.user {
+  background-color: #1a73e8;
+  color: white;
+  float: right;
+  text-align: right;
+}
+
+#chat-window div.bot {
+  background-color: #f0f0f0;
+  color: #222;
+  float: left;
+  text-align: left;
+}
