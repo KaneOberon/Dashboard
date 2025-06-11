@@ -19,3 +19,15 @@ function updateClock() {
 // Update clock immediately and then every second
 updateClock();
 setInterval(updateClock, 1000);
+.weather {
+  margin-top: 2rem;
+  border-top: 1px solid #00ff99;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+#weather-info {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  min-height: 40px;
+}
