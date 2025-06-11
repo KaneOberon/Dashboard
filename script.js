@@ -99,6 +99,8 @@ if ('getBattery' in navigator) {
     updateBatteryStatus(battery);
     battery.addEventListener('levelchange', () => updateBatteryStatus(battery));
     battery.addEventListener('chargingchange', () => updateBatteryStatus(battery));
+  }).catch(() => {
+    document.getElementById('battery-status').textContent = 'Battery info not available.';
   });
 } else {
   document.getElementById('battery-status').textContent = 'Battery info not supported.';
