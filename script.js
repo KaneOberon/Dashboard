@@ -56,6 +56,33 @@ function requestWeather() {
     weatherInfo.textContent = 'Geolocation not supported.';
   }
 }
+const quotes = [
+  {
+    text: "But those who hope in the LORD will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+    source: "Isaiah 40:31"
+  },
+  {
+    text: "The LORD is my shepherd, I lack nothing.",
+    source: "Psalm 23:1"
+  },
+  {
+    text: "I can do all this through him who gives me strength.",
+    source: "Philippians 4:13"
+  },
+  {
+    text: "Trust in the LORD with all your heart and lean not on your own understanding;",
+    source: "Proverbs 3:5"
+  }
+];
+
+function showQuote() {
+  const idx = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[idx];
+  document.getElementById('quote-text').textContent = quote.text;
+  document.getElementById('quote-source').textContent = quote.source;
+}
+
+showQuote();
 
 // Initial calls
 updateClock();
