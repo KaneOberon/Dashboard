@@ -97,7 +97,6 @@ function updateNetworkStatus() {
 if ('getBattery' in navigator) {
   navigator.getBattery().then(battery => {
     updateBatteryStatus(battery);
-
     battery.addEventListener('levelchange', () => updateBatteryStatus(battery));
     battery.addEventListener('chargingchange', () => updateBatteryStatus(battery));
   });
