@@ -112,20 +112,33 @@ window.addEventListener('offline', updateNetworkStatus);
 // Initial network status update
 updateNetworkStatus();
 const newsList = document.getElementById('news-list');
-const RSS_URL = encodeURIComponent('https://feeds.bbci.co.uk/news/world/europe/rss.xml');
+const RSS_URL = 'https://feeds.bbci.co.uk/news/world/europe/rss.xml';
 
-fetch(`https://api.rss2json.com/v1/api.json?rss_url=${RSS_URL}`)
-  .then(response => response.json())
+fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`)
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
   .then(data => {
-    newsList.innerHTML = ''; // Clear loading message
-    const ukraineNews = data.items.filter(item =>
-      item.title.toLowerCase().includes('ukraine') ||
-      item.description.toLowerCase().includes('ukraine')
-    );
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(data.contents, 'text/xml');
+    const items = xmlDoc.querySelectorAll('item');
+    let ukraineNews = [];
+    items.forEach(item => {
+      const title = item.querySelector('title').textContent;
+      const link = item.querySelector('link').textContent;
+      if (title.toLowerCase().includes('ukraine') || 
+          (item.querySelector('description')?.textContent.toLowerCase().includes('ukraine'))) {
+        ukraineNews.push({ title, link });
+      }
+    });
+
+    newsList.innerHTML = '';
     if (ukraineNews.length === 0) {
       newsList.innerHTML = '<li>No Ukraine news found.</li>';
       return;
     }
+
     ukraineNews.slice(0, 5).forEach(item => {
       const li = document.createElement('li');
       li.innerHTML = `<a href="${item.link}" target="_blank" rel="noopener">${item.title}</a>`;
