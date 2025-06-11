@@ -148,6 +148,66 @@ fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`)
   .catch(() => {
     newsList.innerHTML = '<li>Unable to fetch news.</li>';
   });
+const chatWindow = document.getElementById('chat-window');
+const chatInput = document.getElementById('chat-input');
+const chatSend = document.getElementById('chat-send');
+
+// Simple rule-based responses
+function getBotResponse(message) {
+  const msg = message.toLowerCase().trim();
+
+  if (msg.includes('hello') || msg.includes('hi')) {
+    return 'Hello! How can I assist you today?';
+  }
+  if (msg.includes('weather')) {
+    return 'The current weather is displayed on your dashboard.';
+  }
+  if (msg.includes('quote')) {
+    return 'Here is a quote for you: "But those who hope in the LORD will renew their strength." — Isaiah 40:31';
+  }
+  if (msg.includes('time')) {
+    return `The current time is ${document.getElementById('time').textContent}`;
+  }
+  if (msg.includes('help')) {
+    return 'You can ask me about the weather, time, or quotes!';
+  }
+  return "Sorry, I don't understand that. Try asking about weather, time, or quotes.";
+}
+
+// Display messages in chat window
+function appendMessage(sender, text) {
+  const msgDiv = document.createElement('div');
+  msgDiv.style.margin = '5px 0';
+  msgDiv.style.padding = '5px 10px';
+  msgDiv.style.borderRadius = '8px';
+  if (sender === 'user') {
+    msgDiv.style.backgroundColor = '#d1e7ff';
+    msgDiv.style.textAlign = 'right';
+  } else {
+    msgDiv.style.backgroundColor = '#f0f0f0';
+    msgDiv.style.textAlign = 'left';
+  }
+  msgDiv.textContent = text;
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+// Handle send button or enter key
+function sendMessage() {
+  const userMsg = chatInput.value.trim();
+  if (!userMsg) return;
+  appendMessage('user', userMsg);
+  chatInput.value = '';
+  setTimeout(() => {
+    const botReply = getBotResponse(userMsg);
+    appendMessage('bot', botReply);
+  }, 500);
+}
+
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', e => {
+  if (e.key === 'Enter') sendMessage();
+});
 
 // Initial calls
 updateClock();
