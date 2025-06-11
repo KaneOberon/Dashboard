@@ -1,3 +1,6 @@
+const weatherInfo = document.getElementById('weather-info');
+const API_KEY = 'd757120bf8494fd9e1efeb6bb4807335'; //
+
 function updateClock() {
   const now = new Date();
 
@@ -15,18 +18,6 @@ function updateClock() {
   document.getElementById('time').textContent = time;
   document.getElementById('date').textContent = date;
 }
-
-// Update clock immediately and then every second
-updateClock();
-setInterval(updateClock, 1000);
-.weather {
-  margin-top: 2rem;
-  border-top: 1px solid #00ff99;
-  padding-top: 1rem;
-  text-align: center;
-}
-const weatherInfo = document.getElementById('weather-info');
-const API_KEY = 'd757120bf8494fd9e1efeb6bb4807335'; // Replace with your actual OpenWeatherMap API key
 
 function fetchWeather(lat, lon) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
@@ -70,9 +61,3 @@ function requestWeather() {
 updateClock();
 setInterval(updateClock, 1000);
 requestWeather();
-
-#weather-info {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-  min-height: 40px;
-}
