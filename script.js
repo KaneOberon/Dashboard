@@ -208,6 +208,13 @@ chatInput.addEventListener('keydown', e => {
 
 // Greet user on load
 appendMessage("Hi! I'm Aegis. Ask me about weather, quotes, or just chat.");
+document.getElementById('search-button').addEventListener('click', () => {
+  const query = document.getElementById('search-input').value.trim();
+  if (query) {
+    const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    window.open(url, '_blank');
+  }
+});
 
 // Initial calls
 updateClock();
