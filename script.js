@@ -83,6 +83,33 @@ function showQuote() {
 }
 
 showQuote();
+function updateBatteryStatus(battery) {
+  const level = Math.round(battery.level * 100);
+  const charging = battery.charging ? ' (Charging)' : '';
+  document.getElementById('battery-status').textContent = `Battery: ${level}%${charging}`;
+}
+
+function updateNetworkStatus() {
+  const status = navigator.onLine ? 'Online' : 'Offline';
+  document.getElementById('network-status').textContent = `Network: ${status}`;
+}
+
+if ('getBattery' in navigator) {
+  navigator.getBattery().then(battery => {
+    updateBatteryStatus(battery);
+
+    battery.addEventListener('levelchange', () => updateBatteryStatus(battery));
+    battery.addEventListener('chargingchange', () => updateBatteryStatus(battery));
+  });
+} else {
+  document.getElementById('battery-status').textContent = 'Battery info not supported.';
+}
+
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+
+// Initial network status update
+updateNetworkStatus();
 
 // Initial calls
 updateClock();
