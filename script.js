@@ -152,62 +152,62 @@ const chatWindow = document.getElementById('chat-window');
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
 
-// Simple rule-based responses
-function getBotResponse(message) {
-  const msg = message.toLowerCase().trim();
+function appendMessage(message, sender = 'bot') {
+  const msgDiv = document.createElement('div');
+  msgDiv.textContent = message;
+
+  msgDiv.classList.add(sender); // Adds 'user' or 'bot' class for styling
+
+  chatWindow.appendChild(msgDiv);
+  chatWindow.scrollTop = chatWindow.scrollHeight; // Auto scroll
+}
+
+function getBotReply(userMsg) {
+  const msg = userMsg.toLowerCase();
 
   if (msg.includes('hello') || msg.includes('hi')) {
-    return 'Hello! How can I assist you today?';
+    return "At your service, soldier. How can Aegis assist you today?";
   }
   if (msg.includes('weather')) {
-    return 'The current weather is displayed on your dashboard.';
+    return "Weather status is available above. Stay alert and prepared.";
   }
   if (msg.includes('quote')) {
-    return 'Here is a quote for you: "But those who hope in the LORD will renew their strength." — Isaiah 40:31';
+    return "Remember: 'But those who hope in the LORD will renew their strength.' Keep your spirits high.";
   }
-  if (msg.includes('time')) {
-    return `The current time is ${document.getElementById('time').textContent}`;
+  if (msg.includes('thank')) {
+    return "Acknowledged. Glad to be of service.";
   }
-  if (msg.includes('help')) {
-    return 'You can ask me about the weather, time, or quotes!';
+  if (msg.includes('goodbye') || msg.includes('bye') || msg.includes('see you')) {
+    return "Dismissed. Stay safe and keep your guard up.";
   }
-  return "Sorry, I don't understand that. Try asking about weather, time, or quotes.";
+  if (msg.trim() === '') {
+    return "A message is required, soldier. Try again.";
+  }
+  return "Message unclear. Repeat your command or request assistance.";
 }
 
-// Display messages in chat window
-function appendMessage(sender, text) {
-  const msgDiv = document.createElement('div');
-  msgDiv.style.margin = '5px 0';
-  msgDiv.style.padding = '5px 10px';
-  msgDiv.style.borderRadius = '8px';
-  if (sender === 'user') {
-    msgDiv.style.backgroundColor = '#d1e7ff';
-    msgDiv.style.textAlign = 'right';
-  } else {
-    msgDiv.style.backgroundColor = '#f0f0f0';
-    msgDiv.style.textAlign = 'left';
-  }
-  msgDiv.textContent = text;
-  chatWindow.appendChild(msgDiv);
-  chatWindow.scrollTop = chatWindow.scrollHeight;
-}
-
-// Handle send button or enter key
 function sendMessage() {
   const userMsg = chatInput.value.trim();
   if (!userMsg) return;
-  appendMessage('user', userMsg);
+
+  appendMessage(userMsg, 'user');
   chatInput.value = '';
+
   setTimeout(() => {
-    const botReply = getBotResponse(userMsg);
-    appendMessage('bot', botReply);
-  }, 500);
+    const botReply = getBotReply(userMsg);
+    appendMessage(botReply, 'bot');
+  }, 600);
 }
 
 chatSend.addEventListener('click', sendMessage);
-chatInput.addEventListener('keypress', e => {
-  if (e.key === 'Enter') sendMessage();
+chatInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    sendMessage();
+  }
 });
+
+// Greet user on load
+appendMessage("Hi! I'm Aegis. Ask me about weather, quotes, or just chat.");
 
 // Initial calls
 updateClock();
