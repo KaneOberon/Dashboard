@@ -153,3 +153,31 @@ header {
   float: left;
   text-align: left;
 }
+.search-bar {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#search-input {
+  padding: 8px;
+  width: 60%;
+  max-width: 400px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#search-button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  margin-left: 10px;
+  background-color: #2e3b4e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #1c2533;
+}
