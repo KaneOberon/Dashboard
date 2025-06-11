@@ -112,9 +112,6 @@ window.addEventListener('offline', updateNetworkStatus);
 // Initial network status update
 updateNetworkStatus();
 const newsList = document.getElementById('news-list');
-const RSS_URL = encodeURIComponent('https://feeds.bbci.co.uk/news/world/europe/rss.xml');
-
-const newsList = document.getElementById('news-list');
 const RSS_URL = 'https://feeds.bbci.co.uk/news/world/europe/rss.xml';
 
 fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS_URL)}`)
