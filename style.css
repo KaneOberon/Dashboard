@@ -64,3 +64,15 @@ header {
 .quick-links ul li a:hover {
   color: #00cc77;
 }
+.weather {
+  margin-top: 2rem;
+  border-top: 1px solid #00ff99;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+#weather-info {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  min-height: 40px;
+}
